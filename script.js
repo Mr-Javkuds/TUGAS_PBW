@@ -22,6 +22,20 @@ if ("IntersectionObserver" in window) {
 }
 
 const menu = document.getElementById("mainNav");
+const themeButtons = document.querySelectorAll("[data-theme]");
+
+function setTheme(theme) {
+  document.documentElement.setAttribute("data-bs-theme", theme);
+  themeButtons.forEach((button) => {
+    button.setAttribute("aria-pressed", String(button.dataset.theme === theme));
+  });
+}
+
+setTheme(document.documentElement.getAttribute("data-bs-theme") || "light");
+
+themeButtons.forEach((button) => {
+  button.addEventListener("click", () => setTheme(button.dataset.theme));
+});
 
 function markActive(id) {
   navLinks.forEach((link) => {
@@ -55,3 +69,30 @@ if ("IntersectionObserver" in window) {
   );
   document.querySelectorAll("main > section").forEach((section) => observer.observe(section));
 }
+
+const dateTime = document.getElementById("currentDateTime");
+
+function updateDateTime() {
+  dateTime.dateTime = new Date().toISOString();
+  dateTime.textContent = new Intl.DateTimeFormat("id-ID", {
+    dateStyle: "full",
+    timeStyle: "medium",
+    timeZone: "Asia/Jakarta",
+  }).format(new Date());
+}
+
+updateDateTime();
+window.setInterval(updateDateTime, 1000);
+
+const scrollToTopButton = document.getElementById("scrollToTop");
+
+function updateScrollToTopVisibility() {
+  scrollToTopButton.classList.toggle("is-visible", window.scrollY > 300);
+}
+
+window.addEventListener("scroll", updateScrollToTopVisibility, { passive: true });
+updateScrollToTopVisibility();
+
+scrollToTopButton.addEventListener("click", () => {
+  window.scrollTo({ top: 0, behavior: "smooth" });
+});

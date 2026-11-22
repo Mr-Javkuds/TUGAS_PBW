@@ -1,5 +1,6 @@
 /* TEMA GLOBAL */
-:root {
+:root,
+:root[data-bs-theme="dark"] {
   color-scheme: dark;
   --page: #111923;
   --panel: #19232f;
@@ -7,19 +8,40 @@
   --ink: #eef1f4;
   --muted: #b7c1cb;
   --accent: #e6b96b;
+  --nav-bg: #111923;
+  --footer-bg: #0d141c;
+  --schedule-header-bg: #202c39;
+  --schedule-border: #39434d;
+}
+
+:root[data-bs-theme="light"] {
+  color-scheme: light;
+  --page: #f7f8fa;
+  --panel: #fff;
+  --panel-raised: #e9edf2;
+  --ink: #202a35;
+  --muted: #5f6b78;
+  --accent: #9a6717;
+  --nav-bg: #fff;
+  --footer-bg: #edf0f4;
+  --schedule-header-bg: #e9edf2;
+  --schedule-border: #d3dbe4;
+}
+
+:root {
   --bs-body-bg: var(--page);
   --bs-body-color: var(--ink);
   --bs-secondary-color: var(--muted);
   --bs-primary: var(--accent);
-  --bs-link-color: #f2cb82;
-  --bs-link-hover-color: #ffe0a1;
+  --bs-link-color: var(--accent);
+  --bs-link-hover-color: color-mix(in srgb, var(--accent), var(--ink) 25%);
 }
 
 html { scroll-behavior: smooth; scroll-padding-top: 5rem; }
 body { background: var(--page); color: var(--ink); font-family: Switzer, system-ui, -apple-system, "Segoe UI", sans-serif; line-height: 1.65; }
 section { padding-block: clamp(4rem, 8vw, 7rem) !important; }
 /* NAVBAR */
-.navbar { background: #111923; }
+.navbar { background: var(--nav-bg); }
 .navbar-toggler { border: 0; background: var(--panel-raised); }
 .navbar-brand { letter-spacing: -.04em; }
 .navbar-brand img { border-radius: .4rem; }
@@ -28,7 +50,9 @@ section { padding-block: clamp(4rem, 8vw, 7rem) !important; }
 .nav-link.active { border-radius: .35rem; background: var(--panel-raised); }
 .brand-dot, .heading-dot { color: var(--accent); }
 .content-width { max-width: 40rem; }
-.btn-primary { --bs-btn-bg: var(--accent); --bs-btn-border-color: var(--accent); --bs-btn-color: #1a1b1c; --bs-btn-hover-bg: #f1cc83; --bs-btn-hover-border-color: #f1cc83; --bs-btn-hover-color: #1a1b1c; }
+.btn-primary { --bs-btn-bg: var(--accent); --bs-btn-border-color: var(--accent); --bs-btn-color: #fff; --bs-btn-hover-bg: color-mix(in srgb, var(--accent), #000 12%); --bs-btn-hover-border-color: color-mix(in srgb, var(--accent), #000 12%); --bs-btn-hover-color: #fff; }
+.theme-button[aria-pressed="true"] { --bs-btn-color: #fff; --bs-btn-bg: #263b55; --bs-btn-border-color: #263b55; --bs-btn-hover-color: #fff; --bs-btn-hover-bg: #1d3048; --bs-btn-hover-border-color: #1d3048; }
+:root[data-bs-theme="dark"] .theme-button[aria-pressed="true"] { --bs-btn-color: #1a1b1c; --bs-btn-bg: var(--accent); --bs-btn-border-color: var(--accent); --bs-btn-hover-color: #1a1b1c; --bs-btn-hover-bg: #f1cc83; --bs-btn-hover-border-color: #f1cc83; }
 
 /* HOME */
 #hero { padding-block: clamp(3rem, 7vw, 6rem) !important; }
@@ -76,9 +100,11 @@ section { padding-block: clamp(4rem, 8vw, 7rem) !important; }
 .journal-carousel .carousel-indicators .active { background-color: var(--accent); opacity: 1; }
 
 /* FOOTER DAN ANIMASI */
-footer.bg-body { border-color: #39434d !important; background: #0d141c !important; }
+footer.bg-body { border-color: var(--schedule-border) !important; background: var(--footer-bg) !important; }
 footer a { text-decoration: none; }
 .editor-status { font-size: .82rem; letter-spacing: .09em; }
+.scroll-to-top { position: fixed; right: 1.5rem; bottom: 1.5rem; z-index: 1030; display: none; width: 3rem; height: 3rem; border-radius: 50%; box-shadow: 0 .25rem .75rem rgb(0 0 0 / 20%); }
+.scroll-to-top.is-visible { display: inline-flex; align-items: center; justify-content: center; }
 .skip-link:focus { position: fixed; z-index: 2000; top: .5rem; left: .5rem; padding: .75rem; background: #fff; color: #111; }
 .reveal-on-scroll { transform: translateY(14px); opacity: 0; transition: opacity .55s ease, transform .55s ease; }
 .reveal-on-scroll.is-visible { transform: translateY(0); opacity: 1; }
@@ -109,17 +135,17 @@ footer a { text-decoration: none; }
 #schedule .schedule-intro { color: var(--muted); }
 #schedule .schedule-summary { font-size: 1rem; }
 #schedule .schedule-timezone { color: var(--ink); font-size: .9rem; }
-#schedule .schedule-day-card { min-height: 20.5rem; overflow: hidden; border: 1px solid #e6b96b; border-radius: .35rem; background: #111923; }
-#schedule .schedule-day-header { display: flex; align-items: center; justify-content: space-between; gap: .75rem; min-height: 2.8rem; padding: .7rem .9rem; border: 0; background: #212529 !important; color: #e6b96b !important; }
+#schedule .schedule-day-card { min-height: 20.5rem; overflow: hidden; border: 1px solid var(--schedule-border); border-radius: .35rem; background: var(--panel); }
+#schedule .schedule-day-header { display: flex; align-items: center; justify-content: space-between; gap: .75rem; min-height: 2.8rem; padding: .7rem .9rem; border: 0; background: var(--schedule-header-bg) !important; color: var(--accent) !important; }
 #schedule .schedule-day-header h3 { margin: 0; font-size: 1.05rem; font-weight: 650; }
 #schedule .schedule-day-header span { font-size: .8rem; }
 #schedule .schedule-day-card .card-body { padding: 1.15rem .9rem; }
 #schedule .schedule-sessions li + li { margin-top: 1.05rem; padding-top: 1.05rem; }
-#schedule .schedule-time { display: block; margin-bottom: .35rem; color: #e6b96b; font-size: .88rem; font-weight: 650; font-variant-numeric: tabular-nums; }
+#schedule .schedule-time { display: block; margin-bottom: .35rem; color: var(--accent); font-size: .88rem; font-weight: 650; font-variant-numeric: tabular-nums; }
 #schedule .schedule-sessions h4 { margin: 0; color: var(--ink); font-size: .98rem; font-weight: 550; line-height: 1.35; }
 #schedule .schedule-sessions p { margin: .3rem 0 0; color: var(--muted); font-size: .85rem; }
 #schedule .schedule-rest { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
-#schedule .schedule-rest i { margin-bottom: .7rem; color: #e6b96b; font-size: 1.8rem; line-height: 1; }
+#schedule .schedule-rest i { margin-bottom: .7rem; color: var(--accent); font-size: 1.8rem; line-height: 1; }
 #schedule .schedule-rest h4 { margin: 0; color: var(--ink); font-size: .98rem; font-weight: 600; }
 #schedule .schedule-rest p { max-width: 17rem; margin: .75rem 0 0; color: var(--muted); font-size: .88rem; }
 @media (max-width: 767.98px) {
